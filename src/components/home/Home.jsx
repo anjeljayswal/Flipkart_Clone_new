@@ -15,11 +15,11 @@ background: #F2F2F2;
 const Home = () => {
     return (
         <>
-            <NavBar />
+            {/* <NavBar /> */}
             <Component>
-                <Banner />
+                {/* <Banner /> */}
                 <MidSlide title="Discounts for You" timer={true} />
-                <MidSection />
+                {/* <MidSection /> */}
                 <Slide title="Suggesting Items" timer={false} />
                 <Slide title="Top Selection" timer={false} />
                 {/* <Slide title="Recomended Items" timer={false} />

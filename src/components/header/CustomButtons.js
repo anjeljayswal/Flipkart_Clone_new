@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Button, Badge, Typography, styled, Link } from '@mui/material'
 import { ShoppingCart } from '@mui/icons-material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { NavLink } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useContext } from 'react';
@@ -72,7 +73,8 @@ const CustomButtons = () => {
             <NavLink to='/Cart'>
                 <Container>
                     <Badge badgeContent={state.length} color="secondary">
-                        <ShoppingCart />
+                        {/* <ShoppingCart /> */}
+                        <ShoppingCartIcon />
                     </Badge>
                     <Typography style={{ marginLeft: 10 }}>Cart</Typography>
                 </Container>

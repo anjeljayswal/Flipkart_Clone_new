@@ -94,10 +94,10 @@ const Buy = () => {
                         <TextField variant='standard' name='name' type="text" label='Enter Name . . '
                             value={formValues.name} onChange={handleInputChange} onBlur={handleFormValuesChange}
                         />
-                        <TextField variant='standard' name='email' type="email" label='Enter Email . .'
+                        <TextField variant='standard' name='email' type="email" pattern=".+@globex\.com" size="30"  label='Enter Email . .' 
                             value={formValues.email} onChange={handleInputChange} onBlur={handleFormValuesChange}
                         />
-                        <TextField variant='standard' name='phone' type="number" label='Enter Phone Number . . '
+                        <TextField variant='standard' name='phone' type="number" maxlength="10" pattern="[0-9]*" label='Enter Phone Number . . '
                             value={formValues.phone} onChange={handleInputChange} onBlur={handleFormValuesChange}
                         />
                         <TextField variant='standard' name='pincode' type="number" label='Enter Pincode . .'

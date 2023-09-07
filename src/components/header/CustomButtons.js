@@ -21,8 +21,8 @@ const Wrapper = styled(Box)(({ theme }) => ({
             color: '#2874f0',
             alignItems: 'center',
             display: 'flex',
-            flexDirection: 'column',
-            marginTop: 10,
+            flexDirection: 'column',            
+            marginTop: 10,            
         }
     },
     [theme.breakpoints.down('sm')]: {
@@ -35,7 +35,9 @@ const Container = styled(Link)(({ theme }) => ({
     color: '#FFFFFF',
     textDecoration: 'none',
     [theme.breakpoints.down('sm')]: {
-        display: 'block'
+        display: 'block',
+        color: '#2874f0',
+        padding: 12
     }
 }));
 

@@ -1,4 +1,4 @@
-.container {
+/* .container {
     height: (100vh -50px);
     display: flex;
     align-items: center;
@@ -15,7 +15,7 @@
 
 .form Button {
     margin-top: 10px;
-}
+} */
 
 .model-wrapper {
     position: fixed;

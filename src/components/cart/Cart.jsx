@@ -74,7 +74,8 @@ const Cart = () => {
 
     const showForm = () => {
         if (isAuthenticated) {
-            navigate('./Payment');
+            // navigate('./Payment');
+            navigate('./PaymentFor');
         } else {
             toast.error("Please Login first", {
                 position: "top-right",

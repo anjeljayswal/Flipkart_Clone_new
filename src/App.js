@@ -4,7 +4,9 @@ import { Box } from '@mui/material';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DetailView from './details/DetailView';
 import Cart from './components/cart/Cart';
-import Payment from './components/Payment/Payment'
+// import Payment from './components/Payment/Payment'
+import Payment from './components/Payment/PaymentFor'
+
 import AllItems from './components/allItems/AllItems';
 
 function App() {
@@ -16,7 +18,9 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/product/:id' element={<DetailView />} />
           <Route path='/Cart' element={<Cart />} />
-          <Route path='/Cart/Payment' element={<Payment />} />
+          {/* <Route path='/Cart/Payment' element={<Payment />} /> */}
+          <Route path='/Cart/PaymentFor' element={<Payment />} />
+          
           <Route path='/AllItems' element={<AllItems />} />
         </Routes>
       </Box>

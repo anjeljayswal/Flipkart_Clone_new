@@ -97,15 +97,19 @@ const Buy = () => {
                         <TextField variant='standard' name='email' type="email" pattern=".+@globex\.com" size="30"  label='Enter Email . .' 
                             value={formValues.email} onChange={handleInputChange} onBlur={handleFormValuesChange}
                         />
-                        <TextField variant='standard' name='phone' type="number" maxlength="10" pattern="[0-9]*" label='Enter Phone Number . . '
+                        <TextField variant='standard' name='phone' type="tel" maxLength="10" pattern="[0-9]{10}" label='Enter Phone Number . . '
                             value={formValues.phone} onChange={handleInputChange} onBlur={handleFormValuesChange}
                         />
+                        {/* <TextField placeholder="Enter Card Number" multiline rows={4} name='address'
+                            value={formValues.address} onChange={handleInputChange} onBlur={handleFormValuesChange}
+                        /> */}
                         <TextField variant='standard' name='pincode' type="number" label='Enter Pincode . .'
                             value={formValues.pincode} onChange={handleInputChange} onBlur={handleFormValuesChange}
                         />
                         <TextField placeholder="Enter Address . ." multiline rows={4} name='address'
                             value={formValues.address} onChange={handleInputChange} onBlur={handleFormValuesChange}
                         />
+                        
                         <Button variant="contained" onClick={handleSubmit}>Order Now</Button>
                         {show && <Msg />}
                     </Box>

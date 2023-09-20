@@ -64,7 +64,7 @@ const ActionItem = ({ product }) => {
 
             {
                 isAuthenticated ? (
-                    <NavLink to="/Cart/Payment" style={{ textDecoration: "none" }}>
+                    <NavLink to="/Cart/PaymentFor" style={{ textDecoration: "none" }}>
                         <StyledButton style={{ background: '#fb641b' }} variant="contained"><Flash />Buy Now</StyledButton>
                     </NavLink>
                 ) : (

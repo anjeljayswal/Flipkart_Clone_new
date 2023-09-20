@@ -1,9 +1,9 @@
 import { Box, styled } from '@mui/material'
 import React from 'react'
-import Banner from './Banner'
-import MidSection from './MidSection'
+// import Banner from './Banner'
+// import MidSection from './MidSection'
 import MidSlide from './MidSlide'
-import NavBar from './NavBar'
+// import NavBar from './NavBar'
 import Slide from './Slide'
 import Footer from '../footer/Footer'
 

@@ -265,7 +265,7 @@ const Buy = () => {
                                     >
                                         Place Order
                                     </Button>
-                                    {show && <Msg />}
+                                    {show && <div className="msg-container"><Msg/></div>}
                                 </Box>
                             </CardContent>
                         </Card>

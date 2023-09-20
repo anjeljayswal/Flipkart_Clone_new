@@ -1,13 +1,4 @@
-import {
-    Box,
-    Container,
-    TextField,
-    Button,
-    Typography,
-    Card,
-    CardContent,
-    Grid,
-} from "@mui/material";
+import { Box, Container, TextField, Button, Typography, Card, CardContent, Grid } from "@mui/material";
 import { useAuth0 } from '@auth0/auth0-react';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,18 +17,23 @@ const Buy = () => {
     const { dispatch } = GlobalState;
     // define state to keep track of form values and whether they're filled
     const [formValues, setFormValues] = useState({
-        // pincode: '',
-        name: '',
-        // email: '',
-        // phone: '',
-        address: '',
-        cardno: '',
-        expYear: '',
-        cvv: '',
-        expMonth: '',
-        phoneNo: ''
+        Name: '',
+        Address: '',
+        Card_Number: '',
+        CVV: '',
+        phoneNo: '',
+        ExpirationDate: ''
     });
-    const [formFilled, setFormFilled] = useState(false);
+    // const [formFilled, setFormFilled] = useState(false);
+    const [fieldErrors, setFieldErrors] = useState({
+        Name: false,
+        Address: false,
+        cCard_Number: false,
+        CVV: false,
+        phoneNo: false,
+        ExpirationDate: false,
+
+    });
 
     // define functions to update state and check whether form is filled
     const handleInputChange = (event) => {
@@ -46,49 +42,76 @@ const Buy = () => {
             ...formValues,
             [name]: value
         });
+
+        //updated field validation status
+        if (value.trim() === "") {
+            setFieldErrors({
+                ...fieldErrors,
+                [name]: value.trim() === "",
+            })
+
+        } else {
+            setFieldErrors({
+                ...fieldErrors,
+                [name]: false,
+            })
+        }
     }
+
+
     const handleFormValuesChange = () => {
         const formFields = Object.values(formValues);
         const allFieldsFilled = formFields.every((field) => field !== '');
-        setFormFilled(allFieldsFilled);
+        setFieldErrors(allFieldsFilled);
     }
     // define function to show alert and clear form data when order button is clicked
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (formFilled) {
-            Msg();
-            setShow(true)
-            dispatch({ type: 'CLEAR' });
-            handleOrderPlacement();
-        } else {
-            toast.error("Please fill data first", {
-                position: "top-right",
-                autoClose: 2000,
-                theme: "light",
+              const emptyFields = Object.entries(formValues)
+            .filter(([key, value]) => value.trim() === "")
+            .map(([key]) => key);
+         if (emptyFields.length > 0) {
+            // Display error messages for empty fields
+            emptyFields.forEach((fieldName) => {
+                toast.error(`${fieldName} must not be empty`, {
+                    position: "top-right",
+                    autoClose: 2000,
+                    theme: "light",
+                });
             });
+            return; // Exit the function if any field is empty
         }
+       
+        Msg();
+        setShow(true)
+        dispatch({ type: 'CLEAR' });
+        handleOrderPlacement();
+        
     }
     // define function to clear form data
     const handleOrderPlacement = () => {
         setFormValues({
-            // pincode: '',
-            name: '',
-            // email: '',
-            // phone: '',
-            address: '',
-            cardno: '',
-            expYear: '',
-            cardno: '',
-            cvv: '',
-            expMonth: '',
-            phoneNo: ''
+            Name: '',
+            Address: '',
+            Card_Number: '',
+            
+            CVV: '',
+            phoneNo: '',
+            ExpirationDate: ''
         });
-        setFormFilled(false);
+        setFieldErrors({
+            Name: false,
+            Address: false,
+            Card_Number: false,
+            CVV: false,
+            phoneNo: false,
+            ExpirationDate: false,
+        });
     }
     const Msg = () => {
         return (
             <>
-                // <div className="model-wrapper"></div>
+                <div className="model-wrapper"></div>
                 <div className="model">
                     <img className='zoom-in-out-box' src="/404-tick.png" alt="tick" width={100} />
                     <div>
@@ -103,11 +126,35 @@ const Buy = () => {
         )
     }
 
+    const isValidExpiryDate = (expirationDate) => {
+        // Check if the input matches the "MM/YY" format
+        const regex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+        if (!regex.test(expirationDate)) {
+            return false;
+        }
 
+        // Split the input into month and year parts
+        const [month, year] = expirationDate.split('/');
 
+        // Get the current date
+        const currentDate = new Date();
 
+        // Extract the current year and month
+        const currentYear = currentDate.getFullYear() % 100; // Extract the last two digits
+        const currentMonth = currentDate.getMonth() + 1; // January is 1, February is 2, etc.
 
+        // Convert the month and year parts to numbers
+        const inputMonth = parseInt(month, 10);
+        const inputYear = parseInt(year, 10);
 
+        // Check if the year is in the future, or if it's the current year and the month is in the future
+        if (inputYear < currentYear || (inputYear === currentYear && inputMonth < currentMonth)) {
+            return false;
+        }
+
+        // If all checks pass, the expiration date is valid
+        return true;
+    };
     return (
         <div>
             {
@@ -125,22 +172,25 @@ const Buy = () => {
                                 <Box component="form">
                                     <TextField
                                         label="Name"
-                                        name="name"
+                                        name="Name"
                                         variant="outlined"
                                         fullWidth
                                         margin="normal"
-                                        value={formValues.name}
+                                        value={formValues.Name}
                                         onChange={handleInputChange}
                                         onBlur={handleFormValuesChange}
+                                        required
                                     />
 
                                     <TextField
+                                        required
                                         label="Address"
                                         variant="outlined"
-                                        name="address"
+                                        name="Address"
                                         fullWidth
+                                        autoComplete="off"
                                         margin="normal"
-                                        value={formValues.address}
+                                        value={formValues.Address}
                                         onChange={handleInputChange}
                                         onBlur={handleFormValuesChange}
                                     />
@@ -148,9 +198,11 @@ const Buy = () => {
                                         label="Phone Number"
                                         variant="outlined"
                                         name="phoneNo"
-                                        type="number"
+                                        type="text"
                                         fullWidth
                                         margin="normal"
+                                        onInput={(e) => { e.target.value = e.target.value.replace(/[^0-9]/g, '') }}
+                                        autoComplete="off"
                                         value={formValues.phoneNo}
                                         onChange={handleInputChange}
                                         onBlur={handleFormValuesChange}
@@ -161,47 +213,72 @@ const Buy = () => {
                                                 ? 'Phone number must be 10 digits'
                                                 : ''
                                         }
+                                        required
                                     />
 
                                     <TextField
                                         label="Credit Card Number"
                                         variant="outlined"
                                         fullWidth
-                                        name="cardno"
+                                        name="Card_Number"
                                         margin="normal"
-                                        type="number"
+                                        type="text"
+                                        onInput={(e) => { e.target.value = e.target.value.replace(/[^0-9]/g, '') }}
                                         inputProps={{ maxLength: 16 }}
-                                        value={formValues.cardno}
+                                        value={formValues.Card_Number}
                                         onChange={handleInputChange}
                                         onBlur={handleFormValuesChange}
-                                        error={formValues.cardno.length !== 16 && formValues.cardno !== ''} // Check for validation error
+                                        error={formValues.Card_Number.length !== 16 && formValues.Card_Number !== ''} // Check for validation error
                                         helperText={
-                                            formValues.cardno.length !== 16 && formValues.cardno !== ''
+                                            formValues.Card_Number.length !== 16 && formValues.Card_Number !== ''
                                                 ? 'Credit card number must be 16 digits'
                                                 : ''
                                         }
+                                        required
                                     />
-
                                     <TextField
                                         label="CVV(Card Verification Value)"
                                         variant="outlined"
                                         fullWidth
-                                        name="cvv"
+                                        name="CVV"
                                         margin="normal"
-                                        type="number"
+                                        type="text"
+                                        onInput={(e) => { e.target.value = e.target.value.replace(/[^0-9]/g, '') }}
                                         inputProps={{ maxLength: 3 }}
-                                        value={formValues.cvv}
+                                        value={formValues.CVV}
                                         onChange={handleInputChange}
                                         onBlur={handleFormValuesChange}
-                                        error={formValues.cvv.length !== 3 && formValues.cvv !== ''} // Check for validation error
+                                        error={formValues.CVV.length !== 3 && formValues.CVV !== ''} // Check for validation error
                                         helperText={
-                                            formValues.cvv.length !== 3 && formValues.cvv !== ''
+                                            formValues.CVV.length !== 3 && formValues.CVV !== ''
                                                 ? 'CVV must be 3 digits'
                                                 : ''
                                         }
+                                        required
                                     />
-
-                                    <Grid container spacing={2}>
+                                    <TextField
+                                        label="Expiration Date"
+                                        name="ExpirationDate"
+                                        variant="outlined"
+                                        fullWidth
+                                        margin="normal"
+                                        type="text"
+                                        placeholder="MM/YY" // You can use a placeholder for the format
+                                        inputProps={{
+                                            maxLength: 5
+                                        }}
+                                        value={formValues.ExpirationDate}
+                                        onChange={handleInputChange}
+                                        onBlur={handleFormValuesChange}
+                                        error={!isValidExpiryDate(formValues.ExpirationDate)}
+                                        helperText={
+                                            !isValidExpiryDate(formValues.ExpirationDate)
+                                                ? 'Invalid expiration date (MM/YY)'
+                                                : ''
+                                        }
+                                        required
+                                    />
+                                    {/* <Grid container spacing={2}>
                                         <Grid item xs={6}>
                                             <TextField
                                                 label="Expiry Month"
@@ -221,12 +298,12 @@ const Buy = () => {
                                                 }
                                                 helperText={
                                                     formValues.expMonth < 1 ||
-                                                    formValues.expMonth > 12 ||
-                                                    formValues.expMonth === ''
+                                                        formValues.expMonth > 12 ||
+                                                        formValues.expMonth === ''
                                                         ? 'Please enter a valid month (1-12)'
                                                         : ''
                                                 }
-                                                
+
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
@@ -247,14 +324,13 @@ const Buy = () => {
                                                 }
                                                 helperText={
                                                     formValues.expYear < 2023 ||
-                                                    formValues.expYear === ''
+                                                        formValues.expYear === ''
                                                         ? 'Please enter a valid year (2023 onwards)'
                                                         : ''
                                                 }
                                             />
                                         </Grid>
-                                    </Grid>
-
+                                    </Grid> */}
                                     <Button
                                         variant="contained"
                                         color="primary"
@@ -265,7 +341,7 @@ const Buy = () => {
                                     >
                                         Place Order
                                     </Button>
-                                    {show && <div className="msg-container"><Msg/></div>}
+                                    {show && <div className="msg-container"><Msg /></div>}
                                 </Box>
                             </CardContent>
                         </Card>

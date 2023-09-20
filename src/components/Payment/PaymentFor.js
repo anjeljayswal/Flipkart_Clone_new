@@ -88,7 +88,7 @@ const Buy = () => {
     const Msg = () => {
         return (
             <>
-                <div className="model-wrapper"></div>
+                // <div className="model-wrapper"></div>
                 <div className="model">
                     <img className='zoom-in-out-box' src="/404-tick.png" alt="tick" width={100} />
                     <div>
@@ -265,7 +265,7 @@ const Buy = () => {
                                     >
                                         Place Order
                                     </Button>
-                                    {show && <Msg />}
+                                    {show && <div className="msg-container"><Msg/></div>}
                                 </Box>
                             </CardContent>
                         </Card>

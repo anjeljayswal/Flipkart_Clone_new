@@ -26,6 +26,14 @@
     background-color: #636363;
     ;
 } */
+/* //for number hide */
+TextField::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+               -webkit-appearance: none;
+                margin: 0;
+        }
+ 
+  
 
 
 .msg-container {

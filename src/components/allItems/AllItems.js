@@ -25,7 +25,7 @@ const AllItems = () => {
                             </section>
                             <section className="card-price">
                                 <div className="price">
-                                    ${item.price}
+                                    Rs{item.price}
                                 </div>
                                 <div class="cart">
                                     <img src={fassured} alt='img' />

@@ -73,7 +73,7 @@ const Cart = () => {
     };
 
     const showForm = () => {
-        if (isAuthenticated) {
+        if (!isAuthenticated) {
             // navigate('./Payment');
             navigate('./PaymentFor');
         } else {
@@ -98,7 +98,7 @@ const Cart = () => {
                                     <span><img src={fassured} style={{ width: 50, marginLeft: 10 }} alt='product' /></span>
                                 </SmallText>
                                 <p>Rating: {item.rating.rate}</p>
-                                <h4>${item.price}</h4>
+                                <h4>₹{item.price}</h4>
                             </div>
                             <div className='count'>
                                 <button onClick={() => handleDecrement(item)}>-</button>

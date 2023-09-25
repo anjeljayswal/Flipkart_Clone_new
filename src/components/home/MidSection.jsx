@@ -31,7 +31,7 @@ const MidSection = () => {
                     ))
                 }
             </Wrapper>
-            {/* <Image src={url} /> */}
+            <Image src={url} />
         </>
     )
 }

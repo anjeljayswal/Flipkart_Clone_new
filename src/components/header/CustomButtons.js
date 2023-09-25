@@ -1,12 +1,12 @@
 import React from 'react'
 import { Box, Button, Badge, Typography, styled, Link } from '@mui/material'
-// import { ShoppingCart } from '@mui/icons-material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { NavLink } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useContext } from 'react';
 import { CartContext } from '../../context/productcontex';
-
+import { WishlistContext } from '../../context/whishlistcontex';
 
 const Wrapper = styled(Box)(({ theme }) => ({
     margin: '0 3% 0 auto',
@@ -20,6 +20,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
         [theme.breakpoints.down('sm')]: {
             color: '#2874f0',
             alignItems: 'center',
+            justifyContent:'center',
             display: 'flex',
             flexDirection: 'column',            
             marginTop: 10,            
@@ -56,29 +57,47 @@ marginLeft:20px
 const CustomButtons = () => {
     const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
     const GlobalState = useContext(CartContext);
+    
     const state = GlobalState.state;
+
+    const GlobalState1 = useContext(WishlistContext);
+    const wishState = GlobalState1.state; 
+    // console.log(GlobalState1)
 
     return (
         <Wrapper>
             {
                 isAuthenticated ? (
-                    <LoginButton variant='contained' onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                    <button variant='contained' onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
                         LogOut
-                    </LoginButton>
+                    </button>
                 ) : (
-                    <LoginButton variant='contained' onClick={() => loginWithRedirect()} >Login</LoginButton>
+                    <button variant='contained' onClick={() => loginWithRedirect()}
+                        style={{width:'80px', height:'36px', borderRadius:'10px', border:'none',
+                        color:'#2874f0', background:'#ffffff',fontWeight:'bold'
+                    }}
+                    
+                    >Login</button>
                 )
             }
 
-            <Typography style={{ marginTop: 3, width: 135, cursor: 'pointer', fontSize: 15 }}>Become a Seller</Typography>
-            <Typography style={{ marginTop: 3, cursor: 'pointer', fontSize: 15 }}>More</Typography>
+            {/* <Typography style={{ marginTop: 3, width: 135, cursor: 'pointer', fontSize: 15 }}>Become a Seller</Typography> */}
+            {/* <Typography style={{ marginTop: 3, cursor: 'pointer', fontSize: 15 }}>More</Typography> */}
             <NavLink to='/Cart'>
                 <Container>
                     <Badge badgeContent={state.length} color="secondary">
-                        {/* <ShoppingCart /> */}
+                       
                         <ShoppingCartIcon />
                     </Badge>
                     <Typography style={{ marginLeft: 10 }}>Cart</Typography>
+                </Container>
+            </NavLink>
+            <NavLink to='/Wishlist'>
+                <Container>
+                    <Badge badgeContent={wishState.length} color="secondary">
+                    <FavoriteIcon/>
+                    </Badge>
+                    <Typography style={{ marginLeft: 10 }}>Wishlist</Typography>
                 </Container>
             </NavLink>
 

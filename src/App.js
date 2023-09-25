@@ -8,6 +8,7 @@ import Cart from './components/cart/Cart';
 import PaymentFor from './components/Payment/PaymentFor'
 
 import AllItems from './components/allItems/AllItems';
+import Wishlist from './components/Wishlist/Wishlist';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/product/:id' element={<DetailView />} />
           <Route path='/Cart' element={<Cart />} />
+          <Route path='/Wishlist' element={<Wishlist />} />
           {/* <Route path='/Cart/Payment' element={<Payment />} /> */}
           <Route path='/Cart/PaymentFor' element={<PaymentFor />} />
           

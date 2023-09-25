@@ -39,7 +39,7 @@ const ProductDetail = ({ product }) => {
                 <span><img src={fassured} alt='assured-img' style={{ width: 77, marginLeft: 20 }} /></span>
             </Typography>
             <Typography>
-                <span style={{ fontSize: 28 }}>{product.price}</span>&nbsp;&nbsp;&nbsp;
+                <span style={{ fontSize: 28 }}>₹{product.price}</span>&nbsp;&nbsp;&nbsp;
                 <span style={{ color: '#878787' }}><strike>{product.rating.rate}</strike></span>&nbsp;&nbsp;&nbsp;
                 <span style={{ color: '#388E3C' }}>{product.rating.count} off</span>
             </Typography>

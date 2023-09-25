@@ -47,7 +47,7 @@ const Buy = () => {
         if (value.trim() === "") {
             setFieldErrors({
                 ...fieldErrors,
-                [name]: value.trim() === "",
+                [name]: true,
             })
 
         } else {
@@ -67,10 +67,10 @@ const Buy = () => {
     // define function to show alert and clear form data when order button is clicked
     const handleSubmit = (e) => {
         e.preventDefault();
-              const emptyFields = Object.entries(formValues)
+        const emptyFields = Object.entries(formValues)
             .filter(([key, value]) => value.trim() === "")
             .map(([key]) => key);
-         if (emptyFields.length > 0) {
+        if (emptyFields.length > 0) {
             // Display error messages for empty fields
             emptyFields.forEach((fieldName) => {
                 toast.error(`${fieldName} must not be empty`, {
@@ -81,12 +81,12 @@ const Buy = () => {
             });
             return; // Exit the function if any field is empty
         }
-       
+
         Msg();
         setShow(true)
         dispatch({ type: 'CLEAR' });
         handleOrderPlacement();
-        
+
     }
     // define function to clear form data
     const handleOrderPlacement = () => {
@@ -94,7 +94,7 @@ const Buy = () => {
             Name: '',
             Address: '',
             Card_Number: '',
-            
+
             CVV: '',
             phoneNo: '',
             ExpirationDate: ''
@@ -126,15 +126,9 @@ const Buy = () => {
         )
     }
 
-    const isValidExpiryDate = (expirationDate) => {
-        // Check if the input matches the "MM/YY" format
-        const regex = /^(0[1-9]|1[0-2])\/\d{2}$/;
-        if (!regex.test(expirationDate)) {
-            return false;
-        }
-
+    const isValidExpiryDate = (ExpirationDate) => {
         // Split the input into month and year parts
-        const [month, year] = expirationDate.split('/');
+        const [month, year] = ExpirationDate.split('/');
 
         // Get the current date
         const currentDate = new Date();
@@ -155,10 +149,11 @@ const Buy = () => {
         // If all checks pass, the expiration date is valid
         return true;
     };
+    let isValid;
     return (
         <div>
             {
-                isAuthenticated ? (
+                !isAuthenticated ? (
                     <Container maxWidth="sm">
 
                         <Box sx={{ mt: 4 }}>
@@ -263,10 +258,24 @@ const Buy = () => {
                                         fullWidth
                                         margin="normal"
                                         type="text"
-                                        placeholder="MM/YY" // You can use a placeholder for the format
+                                        placeholder="MM/YY"
                                         inputProps={{
                                             maxLength: 5
                                         }}
+                                        onInput={(e) => {
+                                            e.target.value = e.target.value
+                                                .replace(/\D/g, "")   // Remove non-numeric characters
+                                                .replace(/(\d{2})(\d{0,2})/, "$1/$2") // Format as MM/YY
+                                                .substr(0, 5);         // Limit to 5 characters (MM/YY)
+                                        
+                                                 isValid = isValidExpiryDate(e.target.value);
+                                            if (!isValid) {
+                                                e.target.setCustomValidity("Invalid expiration date (MM/YY)");
+                                            } else {
+                                                e.target.setCustomValidity("");
+                                            }
+                                        }}
+                                        
                                         value={formValues.ExpirationDate}
                                         onChange={handleInputChange}
                                         onBlur={handleFormValuesChange}
@@ -278,66 +287,15 @@ const Buy = () => {
                                         }
                                         required
                                     />
-                                    {/* <Grid container spacing={2}>
-                                        <Grid item xs={6}>
-                                            <TextField
-                                                label="Expiry Month"
-                                                variant="outlined"
-                                                fullWidth
-                                                name="expMonth"
-                                                margin="normal"
-                                                type="number"
-                                                inputProps={{ min: 1, max: 12 }}
-                                                value={formValues.expMonth}
-                                                onChange={handleInputChange}
-                                                onBlur={handleFormValuesChange}
-                                                error={
-                                                    formValues.expMonth < 1 ||
-                                                    formValues.expMonth > 12 ||
-                                                    formValues.expMonth === ''
-                                                }
-                                                helperText={
-                                                    formValues.expMonth < 1 ||
-                                                        formValues.expMonth > 12 ||
-                                                        formValues.expMonth === ''
-                                                        ? 'Please enter a valid month (1-12)'
-                                                        : ''
-                                                }
 
-                                            />
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <TextField
-                                                label="Expiry Year"
-                                                variant="outlined"
-                                                fullWidth
-                                                name="expYear"
-                                                margin="normal"
-                                                type="number"
-                                                inputProps={{ min: 2023 }}
-                                                value={formValues.expYear}
-                                                onChange={handleInputChange}
-                                                onBlur={handleFormValuesChange}
-                                                error={
-                                                    formValues.expYear < 2023 ||
-                                                    formValues.expYear === ''
-                                                }
-                                                helperText={
-                                                    formValues.expYear < 2023 ||
-                                                        formValues.expYear === ''
-                                                        ? 'Please enter a valid year (2023 onwards)'
-                                                        : ''
-                                                }
-                                            />
-                                        </Grid>
-                                    </Grid> */}
                                     <Button
                                         variant="contained"
                                         color="primary"
                                         type="submit"
                                         fullWidth
                                         sx={{ mt: 2 }}
-                                        onClick={handleSubmit}
+                                        disabled={!isValid}
+                                        onClick={handleSubmit }
                                     >
                                         Place Order
                                     </Button>

@@ -114,7 +114,7 @@ const Slide = ({ title, timer }) => {
                             <Box textAlign="center" style={{ padding: '25px 15px' }}>
                                 <Image src={product.image} alt='product' />
                                 <Text style={{ fontWeight: 600, color: '#212121' }}>{product.title}</Text>
-                                <Text style={{ color: 'green' }}>${product.price}</Text>
+                                <Text style={{ color: 'green' }}>₹{product.price}</Text>
                                 {/* <Text style={{ color: '#212121', opacity: '.6' }}>{product.tagline}</Text> */}
                             </Box>
                         </Link>

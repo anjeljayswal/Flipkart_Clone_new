@@ -11,24 +11,46 @@ import { WishlistContext } from '../../context/whishlistcontex';
 const Wrapper = styled(Box)(({ theme }) => ({
     margin: '0 3% 0 auto',
     display: 'flex',
+
+    width: '250px', // Sidebar width for larger screens
+    // backgroundColor: '#333', // Sidebar background color
+    color: '#FFFFFF', // Sidebar text color
+    padding: '10px',
     '& > *': {
-        marginRight: '40px !important',
         textDecoration: 'none',
-        color: '#FFFFFF',
-        fontSize: 12,
+        fontSize: 16,
         alignItems: 'center',
-        [theme.breakpoints.down('sm')]: {
-            color: '#2874f0',
-            alignItems: 'center',
-            justifyContent:'center',
-            display: 'flex',
-            flexDirection: 'column',            
-            marginTop: 10,            
-        }
+        display: 'block',
+        padding: '10px 20px', // Adjust padding for each sidebar item
     },
     [theme.breakpoints.down('sm')]: {
-        display: 'block'
-    }
+        width: '100%', // Full width for small screens
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        '& > *': {
+            fontSize: 14, // Adjust font size for small screens
+            padding: '10px 0 ', // Adjust padding for small screens
+        },
+    },
+    // '& > *': {
+    //     marginRight: '40px !important',
+    //     textDecoration: 'none',
+    //     color: '#FFFFFF',
+    //     fontSize: 12,
+    //     alignItems: 'center',
+    //     [theme.breakpoints.down('sm')]: {
+    //         color: '#2874f0',
+    //         alignItems: 'center',
+    //         justifyContent: 'center',
+    //         display: 'flex',
+    //         flexDirection: 'column',
+    //         marginTop: 10,
+    //     }
+    // },
+    // [theme.breakpoints.down('sm')]: {
+    //     display: 'block'
+    // }
 }));
 
 const Container = styled(Link)(({ theme }) => ({
@@ -57,11 +79,11 @@ marginLeft:20px
 const CustomButtons = () => {
     const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
     const GlobalState = useContext(CartContext);
-    
+
     const state = GlobalState.state;
 
     const GlobalState1 = useContext(WishlistContext);
-    const wishState = GlobalState1.state; 
+    const wishState = GlobalState1.state;
     // console.log(GlobalState1)
 
     return (
@@ -73,10 +95,11 @@ const CustomButtons = () => {
                     </button>
                 ) : (
                     <button variant='contained' onClick={() => loginWithRedirect()}
-                        style={{width:'80px', height:'36px', borderRadius:'10px', border:'none',
-                        color:'#2874f0', background:'#ffffff',fontWeight:'bold'
-                    }}
-                    
+                        style={{
+                            width: '80px', height: '36px', borderRadius: '10px', border: 'none',
+                            color: '#2874f0', background: '#ffffff', fontWeight: 'bold'
+                        }}
+
                     >Login</button>
                 )
             }
@@ -86,7 +109,7 @@ const CustomButtons = () => {
             <NavLink to='/Cart'>
                 <Container>
                     <Badge badgeContent={state.length} color="secondary">
-                       
+
                         <ShoppingCartIcon />
                     </Badge>
                     <Typography style={{ marginLeft: 10 }}>Cart</Typography>
@@ -95,7 +118,7 @@ const CustomButtons = () => {
             <NavLink to='/Wishlist'>
                 <Container>
                     <Badge badgeContent={wishState.length} color="secondary">
-                    <FavoriteIcon/>
+                        <FavoriteIcon />
                     </Badge>
                     <Typography style={{ marginLeft: 10 }}>Wishlist</Typography>
                 </Container>

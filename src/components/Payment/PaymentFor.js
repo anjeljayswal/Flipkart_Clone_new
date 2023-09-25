@@ -153,7 +153,7 @@ const Buy = () => {
     return (
         <div>
             {
-                !isAuthenticated ? (
+                isAuthenticated ? (
                     <Container maxWidth="sm">
 
                         <Box sx={{ mt: 4 }}>

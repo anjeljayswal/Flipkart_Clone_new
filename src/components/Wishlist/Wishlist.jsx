@@ -50,7 +50,7 @@ const Wishlist = () => {
                         </div>
                     ))
                 ) : (
-                    // <EmptyCart />
+                    
                     <EmptyWishlist/>
                 )}
             </div>

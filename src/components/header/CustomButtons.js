@@ -10,6 +10,7 @@ import { WishlistContext } from '../../context/whishlistcontex';
 
 const Wrapper = styled(Box)(({ theme }) => ({
     margin: '0 3% 0 auto',
+    marginRight:'30px',
     display: 'flex',
 
     width: '250px', // Sidebar width for larger screens
@@ -96,7 +97,8 @@ const CustomButtons = () => {
                 ) : (
                     <button variant='contained' onClick={() => loginWithRedirect()}
                         style={{
-                            width: '80px', height: '36px', borderRadius: '10px', border: 'none',
+                            width: '75px', height: '30px', borderRadius: '5px', border: 'none',
+                            justifyContent:'center',padding: '2px 3px',margin:'6px 0',marginRight:'20px',
                             color: '#2874f0', background: '#ffffff', fontWeight: 'bold'
                         }}
 

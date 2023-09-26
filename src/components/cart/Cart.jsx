@@ -73,7 +73,7 @@ const Cart = () => {
     };
 
     const showForm = () => {
-        if (!isAuthenticated) {
+        if (isAuthenticated) {
             // navigate('./Payment');
             navigate('./PaymentFor');
         } else {

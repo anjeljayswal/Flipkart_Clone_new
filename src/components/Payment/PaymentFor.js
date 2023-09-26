@@ -275,7 +275,7 @@ const Buy = () => {
                                         type="submit"
                                         fullWidth
                                         sx={{ mt: 2 }}
-                                        disabled={!isValid}
+                                        // disabled={!isValid}
                                         onClick={handleSubmit}
                                     >
                                         Place Order

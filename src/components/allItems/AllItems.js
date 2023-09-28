@@ -14,7 +14,7 @@ const AllItems = () => {
                     <section className="card">
 
                         <Link to="/product/:id" state={{ id: index }} style={{ textDecoration: 'none' }}>
-                            <img src={item.image} alt={item.title} className="card-img" />
+                            <img src={item.thumbnail} alt={item.title} className="card-img" />
                         </Link>
 
                         <div className="card-details">

@@ -24,6 +24,7 @@ const Buy = () => {
         phoneNo: '',
         ExpirationDate: ''
     });
+    console.log(formValues);
     const [formFilled, setFormFilled] = useState(false);
     const [fieldErrors, setFieldErrors] = useState({
         Name: false,
@@ -51,7 +52,9 @@ const Buy = () => {
     // define function to show alert and clear form data when order button is clicked
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (formFilled) {
+        const allFormFilled = Object.values(formValues).every((field) => field !== '');
+
+        if (allFormFilled) {
             Msg();
             setShow(true)
             dispatch({ type: 'CLEAR' });
@@ -67,43 +70,36 @@ const Buy = () => {
     // define function to clear form data
     const handleOrderPlacement = () => {
         setFormValues({
-
-            Name: '',
+        Name: '',
         Address: '',
         Card_Number: '',
         CVV: '',
         phoneNo: '',
-        ExpirationDate: '''
+        ExpirationDate: ''
         });
         setFormFilled(false);
     }
 
     const isValidExpiryDate = (ExpirationDate) => {
-        // Check if the input matches the "MM/YY" format
-        const regex = /^(0[1-9]|1[0-2])\/\d{2}$/;
-        if (!regex.test(ExpirationDate)) {
-          return false;
-        }
-    
         // Split the input into month and year parts
         const [inputMonth, inputYear] = ExpirationDate.split('/').map((str) => parseInt(str, 10));
-    
+
         // Get the current date
         const currentDate = new Date();
-    
+
         // Extract the current year and month
         const currentYear = currentDate.getFullYear() % 100; // Extract the last two digits
         const currentMonth = currentDate.getMonth() + 1; // January is 1, February is 2, etc.
-    
+
         // Check if the year is in the future, or if it's the current year and the month is in the future
         if (inputYear < currentYear || (inputYear === currentYear && inputMonth < currentMonth)) {
-          return false;
+            return false;
         }
-    
+
         // If all checks pass, the expiration date is valid
         return true;
-      };
-    
+    };
+
     const Msg = () => {
         return (
             <>
@@ -215,9 +211,15 @@ const Buy = () => {
                                         name="CVV"
                                         margin="normal"
                                         type="text"
-                                        onInput={(e) => { e.target.value = e.target.value.replace(/[^0-9]/g, '') }}
                                         inputProps={{ maxLength: 3 }}
                                         value={formValues.CVV}
+                                        onInput={(e) => {
+                                            const inputValue = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
+                                            const formattedValue = inputValue
+                                                .slice(0, 16) // Limit to 16 digits
+                                                .replace(/(\d{4})(?=\d)/g, '$1-'); // Add dashes every 4 digits
+                                            e.target.value = formattedValue;
+                                        }}
                                         onChange={handleInputChange}
                                         onBlur={handleFormValuesChange}
                                         error={formValues.CVV.length !== 3 && formValues.CVV !== ''} // Check for validation error
@@ -238,17 +240,17 @@ const Buy = () => {
                                         placeholder="MM/YY" // You can use a placeholder for the format
                                         onInput={(e) => {
                                             e.target.value = e.target.value
-                                              .replace(/\D/g, "")   // Remove non-numeric characters
-                                              .replace(/(\d{2})(\d{0,2})/, "$1/$2") // Format as MM/YY
-                                              .substr(0, 5);         // Limit to 5 characters (MM/YY)
-                    
+                                                .replace(/\D/g, "")   // Remove non-numeric characters
+                                                .replace(/(\d{2})(\d{0,2})/, "$1/$2") // Format as MM/YY
+                                                .substr(0, 5);         // Limit to 5 characters (MM/YY)
+
                                             isValid = isValidExpiryDate(e.target.value);
                                             if (!isValid) {
-                                              e.target.setCustomValidity("Invalid expiration date (MM/YY)");
+                                                e.target.setCustomValidity("Invalid expiration date (MM/YY)");
                                             } else {
-                                              e.target.setCustomValidity("");
+                                                e.target.setCustomValidity("");
                                             }
-                                          }}
+                                        }}
                                         inputProps={{
                                             maxLength: 5
                                         }}
@@ -272,7 +274,7 @@ const Buy = () => {
                                         type="submit"
                                         fullWidth
                                         sx={{ mt: 2 }}
-                                        // disabled={!isValid}
+                                        
                                         onClick={handleSubmit}
                                     >
                                         Place Order

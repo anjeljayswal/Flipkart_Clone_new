@@ -82,7 +82,7 @@ const ActionItem = ({ product }) => {
         <LeftContainer>
 
             <Box style={{ position: "relative", padding: '15px  20px', border: '1px solid #f0f0f0' }}>
-                <Image src={product.image} alt='product' style={{ width: "100%" }} />
+                <Image src={product.thumbnail} alt='product' style={{ width: "100%" }} />
                 <button
 
                     onClick={() => {

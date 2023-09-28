@@ -28,7 +28,7 @@ const Buy = () => {
     const [fieldErrors, setFieldErrors] = useState({
         Name: false,
         Address: false,
-        cCard_Number: false,
+        Card_Number: false,
         CVV: false,
         phoneNo: false,
         ExpirationDate: false,
@@ -68,15 +68,12 @@ const Buy = () => {
     const handleOrderPlacement = () => {
         setFormValues({
 
-            name: '',
-
-            address: '',
-            cardno: '',
-            expYear: '',
-            cardno: '',
-            cvv: '',
-            expMonth: '',
-            phoneNo: ''
+            Name: '',
+        Address: '',
+        Card_Number: '',
+        CVV: '',
+        phoneNo: '',
+        ExpirationDate: '''
         });
         setFormFilled(false);
     }

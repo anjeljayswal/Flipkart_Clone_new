@@ -14,7 +14,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
     display: 'flex',
 
     width: '250px', // Sidebar width for larger screens
-    // backgroundColor: '#333', // Sidebar background color
+   
     color: '#FFFFFF', // Sidebar text color
     padding: '10px',
     '& > *': {
@@ -34,24 +34,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
             padding: '10px 0 ', // Adjust padding for small screens
         },
     },
-    // '& > *': {
-    //     marginRight: '40px !important',
-    //     textDecoration: 'none',
-    //     color: '#FFFFFF',
-    //     fontSize: 12,
-    //     alignItems: 'center',
-    //     [theme.breakpoints.down('sm')]: {
-    //         color: '#2874f0',
-    //         alignItems: 'center',
-    //         justifyContent: 'center',
-    //         display: 'flex',
-    //         flexDirection: 'column',
-    //         marginTop: 10,
-    //     }
-    // },
-    // [theme.breakpoints.down('sm')]: {
-    //     display: 'block'
-    // }
+   
 }));
 
 const Container = styled(Link)(({ theme }) => ({
@@ -91,7 +74,13 @@ const CustomButtons = () => {
         <Wrapper>
             {
                 isAuthenticated ? (
-                    <button variant='contained' onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                    <button variant='contained' onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+                        style={{
+                            width: '75px', height: '30px', borderRadius: '5px', border: 'none',
+                            justifyContent:'center',padding: '2px 3px',margin:'6px 0',marginRight:'20px',
+                            color: '#2874f0', background: '#ffffff', fontWeight: 'bold'
+                        }}
+                >
                         LogOut
                     </button>
                 ) : (

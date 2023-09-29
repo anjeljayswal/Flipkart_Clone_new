@@ -22,7 +22,8 @@ const Buy = () => {
         Card_Number: '',
         CVV: '',
         phoneNo: '',
-        ExpirationDate: ''
+        ExpirationDate: '',
+        CardHolderName:''
     });
     console.log(formValues);
     const [formFilled, setFormFilled] = useState(false);
@@ -33,6 +34,7 @@ const Buy = () => {
         CVV: false,
         phoneNo: false,
         ExpirationDate: false,
+        CardHolderName:false,
 
     });
 
@@ -75,7 +77,8 @@ const Buy = () => {
         Card_Number: '',
         CVV: '',
         phoneNo: '',
-        ExpirationDate: ''
+        ExpirationDate: '',
+            CardHolderName:''
         });
         setFormFilled(false);
     }
@@ -144,10 +147,18 @@ const Buy = () => {
                                         variant="outlined"
                                         fullWidth
                                         margin="normal"
+                                       inputProps={{ maxLength: 50 }} // Adjust the maximum length as needed
                                         value={formValues.Name}
                                         onChange={handleInputChange}
                                         onBlur={handleFormValuesChange}
+                                        error={!/^[a-zA-Z\s]*$/.test(formValues.Name)}
+                                        helperText={
+                                            !/^[a-zA-Z\s]*$/.test(formValues.Name)
+                                                ? 'Name should only contain letters and spaces'
+                                                : ''
+                                        }
                                         required
+                                        
                                     />
 
                                     <TextField
@@ -203,6 +214,26 @@ const Buy = () => {
                                                 : ''
                                         }
                                         required
+                                    />
+
+                                            <TextField
+                                        label="Card Holder Name"
+                                        name="CardHolderName"
+                                        variant="outlined"
+                                        fullWidth
+                                        margin="normal"
+                                       inputProps={{ maxLength: 50 }} // Adjust the maximum length as needed
+                                        value={formValues.CardHolderName}
+                                        onChange={handleInputChange}
+                                        onBlur={handleFormValuesChange}
+                                        error={!/^[a-zA-Z\s]*$/.test(formValues.CardHolderName)}
+                                        helperText={
+                                            !/^[a-zA-Z\s]*$/.test(formValues.CardHolderName)
+                                                ? 'Name should only contain letters and spaces'
+                                                : ''
+                                        }
+                                        required
+                                        
                                     />
                                     <TextField
                                         label="CVV(Card Verification Value)"

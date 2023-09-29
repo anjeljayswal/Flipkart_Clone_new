@@ -1,64 +1,47 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Roboto, Arial, sans-serif;
-}
-
-.row {
-    display: flex;
-    /* align-items: center; */
-    justify-content: space-around;
-    line-height: 3;
-    flex-wrap: wrap;
-    gap: 10px;
-    font-size: 20px;
-    padding: 0px 20px;
-}
-
+/* Define the base styles for your footer */
 footer {
-    background-color: #172337;
-    color: white;
-    padding-top: 3%;
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  font-size: 14px;
 }
 
-.Footer h6 {
-    color: #878787;
-    font-size: .8em;
+/* Style the columns inside the footer */
+.col {
+  padding: 10px;
 }
 
-.Footer>div {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-    font-size: .75em;
-    font-weight: 100;
+/* Add some spacing between links */
+a {
+  margin-right: 10px;
+  color: #fff;
+  text-decoration: none;
 }
 
-.Footer a {
-    color: white;
-    line-height: 1.3rem;
+/* Style the border-top for the second row */
+.border-top {
+  border-top: 1px solid #555;
 }
 
-.Footer p {
-    margin: 0;
-    font-size: .96em;
-    line-height: 1.2rem;
-}
-
-footer i {
-    color: gold;
-}
-
-footer span {
-    font-size: .75em;
-    cursor: pointer;
-}
-
-div a {
-    text-decoration: none;
-}
-
+/* Style the icons */
 i {
-    padding: 10px;
+  margin-right: 5px;
+}
+
+/* Apply styles for small screens (e.g., smartphones) */
+@media (max-width: 768px) {
+  /* Center align text in columns */
+  .col {
+    text-align: center;
+  }
+
+  /* Remove right margin from links */
+  a {
+    margin-right: 0;
+  }
+
+  /* Increase font size for better readability */
+  footer {
+    font-size: 16px;
+  }
 }

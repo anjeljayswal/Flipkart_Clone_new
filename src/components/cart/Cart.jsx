@@ -91,7 +91,7 @@ const Cart = () => {
                 {state.length > 0 ? (
                     state.map((item, index) => (
                         <div className='onecomp' key={index}>
-                            <img src={item.image} style={{ width: 100, height: 100 }} alt='flipkart' />
+                            <img src={item.thumbnail} style={{ width: 100, height: 100 }} alt='flipkart' />
                             <div className='desccomp'>
                                 <h4>{item.title}</h4>
                                 <SmallText>Seller:RetailNet

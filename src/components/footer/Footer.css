@@ -1,3 +1,70 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+.row {
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-around;
+  line-height: 3;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 20px;
+  padding: 0px 20px;
+}
+
+footer {
+  background-color: #172337;
+  color: white;
+  padding-top: 3%;
+}
+
+.Footer h6 {
+  color: #878787;
+  font-size: .8em;
+}
+
+.Footer>div {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  font-size: .75em;
+  font-weight: 100;
+}
+
+.Footer a {
+  color: white;
+  line-height: 1.3rem;
+}
+
+.Footer p {
+  margin: 0;
+  font-size: .96em;
+  line-height: 1.2rem;
+}
+
+footer i {
+  color: gold;
+}
+
+footer span {
+  font-size: .75em;
+  cursor: pointer;
+}
+
+div a {
+  text-decoration: none;
+}
+
+i {
+  padding: 10px;
+}
+
+
+
 /* Define the base styles for your footer */
 footer {
   background-color: #333;
@@ -43,5 +110,69 @@ i {
   /* Increase font size for better readability */
   footer {
     font-size: 16px;
+  }
+}
+
+
+/* Container styles */
+.container-fluid {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+}
+
+/* Column styles */
+.col {
+  padding: 10px;
+}
+
+/* Header styles (e.g., "ABOUT," "HELP," etc.) */
+h6 {
+  font-size: 16px;
+  color: #fff;
+}
+
+/* Link styles */
+a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Link hover effect */
+a:hover {
+  text-decoration: underline;
+}
+
+/* Address and contact styles */
+p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Icon styles */
+i {
+  margin-right: 5px;
+}
+
+/* Copyright and payment method styles */
+.col.col-md-2.col-xs-4 span,
+.col.col-md-5.col-xs-6 img {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 768px) {
+  .col {
+    text-align: center;
+  }
+  h6 {
+    font-size: 14px;
+  }
+  a {
+    font-size: 14px;
   }
 }
